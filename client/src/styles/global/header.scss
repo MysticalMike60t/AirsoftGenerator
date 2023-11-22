@@ -1,0 +1,19 @@
+header.header#header {
+  @include flex-center-center-row;
+  width: 100vw;
+  height: 50px;
+  background: green;
+  position: fixed;
+  ul {
+    @include flex-center-center-row;
+    list-style: none;
+    gap: 20px;
+    li {
+      @include flex-center-center-row;
+      a {
+        @include flex-center-center-row;
+        text-decoration: none;
+      }
+    }
+  }
+}
