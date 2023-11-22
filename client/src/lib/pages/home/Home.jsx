@@ -212,7 +212,7 @@ const Home = () => {
     <div className="page home">
       <div className="page-width-message">
         <p>
-        Please use this site on a device with a screen wider than <span>560</span> pixels!
+        Please use this site on a device with a screen wider than <span>970</span> pixels!
         </p>
       </div>
       <Sidebar
