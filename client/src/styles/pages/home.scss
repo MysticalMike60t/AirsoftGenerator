@@ -15,14 +15,26 @@
     margin: 0;
     background: green;
     position: absolute;
-    a {
-      text-decoration: none;
-      color: black;
+    .category {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-direction: column;
       width: 100%;
-      margin: 0;
-      padding: 10px;
-      background: white;
-      border-bottom: 1px solid #ccc;
+      background: orange;
+      position: relative;
+      h3 {
+        font-size: 1.2em;
+      }
+      .link {
+        text-decoration: none;
+        color: black;
+        width: 100%;
+        margin: 0;
+        padding: 10px;
+        background: white;
+        border-bottom: 1px solid #ccc;
+      }
     }
   }
   .viewer {

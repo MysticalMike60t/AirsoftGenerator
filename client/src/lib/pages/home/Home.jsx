@@ -13,7 +13,7 @@ const Sidebar = ({ imagesByCategory }) => {
         <div className="category" key={category.name}>
           <h3>{category.name}</h3>
           {imagesByCategory[category.name].map((image, index) => (
-            <Link key={index} to={`/?image=${encodeURIComponent(image.name)}`}>
+            <Link className="link" key={index} to={`/?image=${encodeURIComponent(image.name)}`}>
               {image.name}
             </Link>
           ))}
