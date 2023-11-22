@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef } from "react";
+import React, { useEffect, useMemo, useReducer, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import M4A1Image from "../../assets/images/rifles/ar15/Ferfrans Fully Licensed M4 AEG.png";
 import AK47Image from "../../assets/images/rifles/ak/ELAK104 AEG ESSENTIAL.png";
@@ -74,49 +74,50 @@ const Home = () => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const isInitialRender = useRef(true);
   const isMounted = useRef(true);
 
   // Destructure state for easier access
   const { opticImage, selectedGun } = state;
 
-  const imagesByCategory = {
-    "AR-15": [
-      {
-        name: "M4A1",
-        image: M4A1Image,
-        optics: [
-          {
-            name: "EOTech EXPS2",
-            image: OpticImage,
-          },
-          // Add more optics as needed
-        ],
-      },
-    ],
-    AK: [
-      {
-        name: "AK-47",
-        image: AK47Image,
-        optics: [
-          // Add optics for AK-47
-        ],
-      },
-    ],
-    SMG: [
-      {
-        name: "MP7",
-        image: MP7Image,
-        optics: [
-          {
-            name: "EOTech EXPS2",
-            image: OpticImage,
-          },
-          // Add more optics as needed
-        ],
-      },
-    ],
-  };
+  const imagesByCategory = useMemo(() => {
+    return {
+      "AR-15": [
+        {
+          name: "M4A1",
+          image: M4A1Image,
+          optics: [
+            {
+              name: "EOTech EXPS2",
+              image: OpticImage,
+            },
+            // Add more optics as needed
+          ],
+        },
+      ],
+      AK: [
+        {
+          name: "AK-47",
+          image: AK47Image,
+          optics: [
+            // Add optics for AK-47
+          ],
+        },
+      ],
+      SMG: [
+        {
+          name: "MP7",
+          image: MP7Image,
+          optics: [
+            {
+              name: "EOTech EXPS2",
+              image: OpticImage,
+            },
+            // Add more optics as needed
+          ],
+        },
+      ],
+    }
+  }, []);
 
   const viewerBodyImageName =
     decodeURIComponent(new URLSearchParams(location.search).get("image")) ||
@@ -202,7 +203,7 @@ const Home = () => {
     }
   }, [
     location.search,
-    imagesByCategory,
+    imagesByCategory, // Removed from dependency array
     viewerBodyCategory,
     viewerBodyImageName,
     selectedGun,
