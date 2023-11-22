@@ -120,6 +120,8 @@
             top: -47.5px;
             width: 100px;
             position: absolute;
+            -moz-window-dragging: none;
+            -webkit-user-drag: none;
           }
 
           &.MP7 {
@@ -137,6 +139,12 @@
         .body {
           width: 100%;
           position: relative;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          -webkit-user-select: none;
+          user-select: none;
+          -moz-window-dragging: none;
+          -webkit-user-drag: none;
         }
       }
     }
