@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import M4A1Image from "../../assets/images/rifles/ar15/Ferfrans Fully Licensed M4 AEG.png";
 import AK47Image from "../../assets/images/rifles/ak/ELAK104 AEG ESSENTIAL.png";
 import MP7Image from "../../assets/images/smgs/mp7/HK MP7 Navy GBB Airsoft Submachine Gun.png";
@@ -25,10 +25,10 @@ const Sidebar = ({ imagesByCategory, onSelectOptic }) => {
                 <div className="optic-selector">
                   <h4>Optics:</h4>
                   {gun.optics.map((optic, opticIndex) => (
-                    <button key={opticIndex} onClick={() => onSelectOptic(optic.image)}>
-                      {optic.name}
-                    </button>
-                  ))}
+  <button key={opticIndex} onClick={() => onSelectOptic(optic.image, optic.name)}>
+    {optic.name}
+  </button>
+))}
                 </div>
               )}
               </div>
@@ -41,6 +41,7 @@ const Sidebar = ({ imagesByCategory, onSelectOptic }) => {
 
 const Home = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [opticImage, setOpticImage] = useState(null);
 
@@ -107,10 +108,40 @@ const Home = () => {
     : "sight-selector";
   const opticClass = opticImage ? opticImage.split('/').pop().split('.')[0] : ""; // Extract optic name from image URL
 
-  const onSelectOptic = (opticImage) => {
+  const onSelectOptic = (opticImage, opticName) => {
     setOpticImage(opticImage);
+  
+    // Update URL parameter
+    if (opticName) {
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set("optic", encodeURIComponent(opticName));
+      navigate({ search: searchParams.toString() });
+    }
   };
+  
 
+  // Effect to handle changing opticImage based on URL parameters
+  useEffect(() => {
+    const opticName = decodeURIComponent(new URLSearchParams(location.search).get("optic"));
+    if (opticName) {
+      for (const category in imagesByCategory) {
+        const optic = imagesByCategory[category]
+          .flatMap((gun) => gun.optics || [])
+          .find((o) => o.name === opticName);
+  
+        if (optic && optic.image !== opticImage) {
+          setOpticImage(optic.image);
+  
+          // Update URL parameter
+          const searchParams = new URLSearchParams(location.search);
+          searchParams.set("optic", encodeURIComponent(optic.name));
+          navigate({ search: searchParams.toString() });
+  
+          break;
+        }
+      }
+    }
+  }, [location.search, opticImage, imagesByCategory, navigate]);
 
   return (
     <div className="page home">
