@@ -13,7 +13,11 @@ const Sidebar = ({ imagesByCategory }) => {
         <div className="category" key={category.name}>
           <h3>{category.name}</h3>
           {imagesByCategory[category.name].map((image, index) => (
-            <Link className="link" key={index} to={`/?image=${encodeURIComponent(image.name)}`}>
+            <Link
+              className="link"
+              key={index}
+              to={`/?image=${encodeURIComponent(image.name)}`}
+            >
               {image.name}
             </Link>
           ))}
@@ -66,8 +70,9 @@ const Home = () => {
     }
   }
 
-  const sightSelectorClass = viewerBodyCategory
-    ? `sight-selector ${viewerBodyCategory}`
+  const gunClass = viewerBodyCategory ? `gun ${viewerBodyCategory}` : "gun";
+  const sightSelectorClass = viewerBodyImage
+    ? `sight-selector ${viewerBodyImageName}`
     : "sight-selector";
 
   return (
@@ -75,7 +80,7 @@ const Home = () => {
       <Sidebar imagesByCategory={imagesByCategory} />
       <div className="viewer">
         <div className="wrapper">
-          <div className="gun">
+          <div className={gunClass}>
             <div className={sightSelectorClass}></div>
             {viewerBodyImage ? (
               <img src={viewerBodyImage} alt="Body" className="body" />
