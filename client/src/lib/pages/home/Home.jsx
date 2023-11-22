@@ -6,32 +6,38 @@ import MP7Image from "../../assets/images/smgs/mp7/HK MP7 Navy GBB Airsoft Subma
 import OpticImage from "../../assets/images/optics/holographic/eotech/exps2_ls.png"; // Add your optic image
 
 const Sidebar = ({ imagesByCategory, onSelectOptic }) => {
-  const categories = [{ name: "AR-15" }, { name: "AK" }, { name: "SMG" }];
-
-  return (
-    <div className="sidebar" id="sidebar">
-      {categories.map((category) => (
-        <div className="category" key={category.name}>
-          <h3>{category.name}</h3>
-          {imagesByCategory[category.name].map((image, index) => (
-            <Link
-              className="link"
-              key={index}
-              to={`/?image=${encodeURIComponent(image.name)}`}
-            >
-              {image.name}
-            </Link>
-          ))}
-        </div>
-      ))}
-      <div className="optic-selector">
-        <button onClick={() => onSelectOptic(OpticImage)}>
-          Add Optic
-        </button>
+    const categories = [{ name: "AR-15" }, { name: "AK" }, { name: "SMG" }];
+  
+    return (
+      <div className="sidebar" id="sidebar">
+        {categories.map((category) => (
+          <div className="category" key={category.name}>
+            <h3>{category.name}</h3>
+            {imagesByCategory[category.name].map((gun, index) => (
+              <div key={index}>
+                <Link
+                  className="link"
+                  to={`/?category=${encodeURIComponent(category.name)}&image=${encodeURIComponent(gun.name)}`}
+                >
+                  {gun.name}
+                </Link>
+                {gun.optics && gun.optics.length > 0 && (
+                  <div className="optic-selector">
+                    <h4>Optics:</h4>
+                    {gun.optics.map((optic, opticIndex) => (
+                      <button key={opticIndex} onClick={() => onSelectOptic(optic.image)}>
+                        {optic.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
-    </div>
-  );
-};
+    );
+  };
 
 const Home = () => {
   const location = useLocation();
@@ -43,18 +49,35 @@ const Home = () => {
       {
         name: "M4A1",
         image: M4A1Image,
+        optics: [
+          {
+            name: "EOTech EXPS2",
+            image: OpticImage,
+          },
+          // Add more optics as needed
+        ],
       },
     ],
     AK: [
       {
         name: "AK-47",
         image: AK47Image,
+        optics: [
+          // Add optics for AK-47
+        ],
       },
     ],
     SMG: [
       {
         name: "MP7",
         image: MP7Image,
+        optics: [
+            {
+              name: "EOTech EXPS2",
+              image: OpticImage,
+            },
+            // Add more optics as needed
+          ],
       },
     ],
   };
