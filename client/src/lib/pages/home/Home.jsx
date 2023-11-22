@@ -22,15 +22,15 @@ const Sidebar = ({ imagesByCategory, onSelectOptic }) => {
                   {gun.name}
                 </Link>
                 {gun.optics && gun.optics.length > 0 && (
-                  <div className="optic-selector">
-                    <h4>Optics:</h4>
-                    {gun.optics.map((optic, opticIndex) => (
-                      <button key={opticIndex} onClick={() => onSelectOptic(optic.image)}>
-                        {optic.name}
-                      </button>
-                    ))}
-                  </div>
-                )}
+                <div className="optic-selector">
+                  <h4>Optics:</h4>
+                  {gun.optics.map((optic, opticIndex) => (
+                    <button key={opticIndex} onClick={() => onSelectOptic(optic.image)}>
+                      {optic.name}
+                    </button>
+                  ))}
+                </div>
+              )}
               </div>
             ))}
           </div>
@@ -105,10 +105,12 @@ const Home = () => {
   const sightSelectorClass = viewerBodyImage
     ? `sight-selector ${viewerBodyImageName}`
     : "sight-selector";
+  const opticClass = opticImage ? opticImage.split('/').pop().split('.')[0] : ""; // Extract optic name from image URL
 
   const onSelectOptic = (opticImage) => {
     setOpticImage(opticImage);
   };
+
 
   return (
     <div className="page home">
@@ -117,7 +119,7 @@ const Home = () => {
         <div className="wrapper">
           <div className={gunClass}>
             <div className={sightSelectorClass}>
-              {opticImage && <img src={opticImage} alt="Optic" className="optic" />}
+              {opticImage && <img src={opticImage} alt="Optic" className={`optic ${opticClass}`} />}
             </div>
             {viewerBodyImage ? (
               <img src={viewerBodyImage} alt="Body" className="body" />
