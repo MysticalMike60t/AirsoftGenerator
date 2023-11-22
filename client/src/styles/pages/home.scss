@@ -68,6 +68,12 @@
           &:hover {
             filter: brightness(200%);
           }
+          .optic {
+            right: 0;
+            top: -47.5px;
+            width: 100px;
+            position: absolute;
+          }
 
           &.MP7 {
             left: 225px;

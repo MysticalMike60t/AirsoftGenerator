@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import M4A1Image from "../../assets/images/rifles/ar15/Ferfrans Fully Licensed M4 AEG.png";
 import AK47Image from "../../assets/images/rifles/ak/ELAK104 AEG ESSENTIAL.png";
 import MP7Image from "../../assets/images/smgs/mp7/HK MP7 Navy GBB Airsoft Submachine Gun.png";
+import OpticImage from "../../assets/images/optics/holographic/eotech/exps2_ls.png"; // Add your optic image
 
-const Sidebar = ({ imagesByCategory }) => {
+const Sidebar = ({ imagesByCategory, onSelectOptic }) => {
   const categories = [{ name: "AR-15" }, { name: "AK" }, { name: "SMG" }];
 
   return (
@@ -23,12 +24,19 @@ const Sidebar = ({ imagesByCategory }) => {
           ))}
         </div>
       ))}
+      <div className="optic-selector">
+        <button onClick={() => onSelectOptic(OpticImage)}>
+          Add Optic
+        </button>
+      </div>
     </div>
   );
 };
 
 const Home = () => {
   const location = useLocation();
+
+  const [opticImage, setOpticImage] = useState(null);
 
   const imagesByCategory = {
     "AR-15": [
@@ -75,13 +83,19 @@ const Home = () => {
     ? `sight-selector ${viewerBodyImageName}`
     : "sight-selector";
 
+  const onSelectOptic = (opticImage) => {
+    setOpticImage(opticImage);
+  };
+
   return (
     <div className="page home">
-      <Sidebar imagesByCategory={imagesByCategory} />
+      <Sidebar imagesByCategory={imagesByCategory} onSelectOptic={onSelectOptic} />
       <div className="viewer">
         <div className="wrapper">
           <div className={gunClass}>
-            <div className={sightSelectorClass}></div>
+            <div className={sightSelectorClass}>
+              {opticImage && <img src={opticImage} alt="Optic" className="optic" />}
+            </div>
             {viewerBodyImage ? (
               <img src={viewerBodyImage} alt="Body" className="body" />
             ) : (
