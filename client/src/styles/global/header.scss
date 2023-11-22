@@ -13,7 +13,12 @@ header.header#header {
       @include flex-center-center-row;
       a {
         @include flex-center-center-row;
+        color: $primary;
+        transition: 100ms ease all;
         text-decoration: none;
+        &:hover {
+          color: $secondary;
+        }
       }
     }
   }
