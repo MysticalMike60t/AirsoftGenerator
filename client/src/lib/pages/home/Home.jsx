@@ -117,7 +117,9 @@ const Home = () => {
     : "sight-selector";
 
   const opticClass = opticImage
-    ? `${opticImage.split("/").pop().split(".")[0]} ${selectedGun && selectedGun.name}`
+    ? `${opticImage.split("/").pop().split(".")[0]} ${
+        selectedGun && selectedGun.name
+      }`
     : "";
 
   const onSelectOptic = (opticImage, opticName) => {
@@ -167,10 +169,20 @@ const Home = () => {
         }
       }
     }
-    const updatedSelectedGun = imagesByCategory[viewerBodyCategory].find(
-      (gun) => gun.name === viewerBodyImageName
-    );
-    setSelectedGun(updatedSelectedGun);
+    const categoryImages = imagesByCategory[viewerBodyCategory];
+
+const updatedSelectedGun =
+  categoryImages &&
+  categoryImages.find((gun) => gun.name === viewerBodyImageName);
+
+if (!updatedSelectedGun) {
+  // Handle the case where the gun is not found
+  console.error(`Gun with name ${viewerBodyImageName} not found.`);
+  return;
+}
+
+setSelectedGun(updatedSelectedGun);
+
   }, [
     location.search,
     opticImage,
