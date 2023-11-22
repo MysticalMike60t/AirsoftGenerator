@@ -122,10 +122,17 @@
             position: absolute;
             -moz-window-dragging: none;
             -webkit-user-drag: none;
+            &.exps2_ls {
+              &.MP7 {
+                top: -65px;
+                right: 0;
+                width: 135px;
+              }
+            }
           }
 
           &.MP7 {
-            left: 225px;
+            left: 300px;
             top: 35px;
           }
           &.M4A1 {
