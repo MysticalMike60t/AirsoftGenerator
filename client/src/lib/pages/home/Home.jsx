@@ -113,11 +113,12 @@ const Home = () => {
 
   const gunClass = viewerBodyCategory ? `gun ${viewerBodyCategory}` : "gun";
   const sightSelectorClass = viewerBodyImage
-    ? `sight-selector ${viewerBodyImageName}`
+    ? `sight-selector ${viewerBodyImageName} ${selectedGun && selectedGun.name}`
     : "sight-selector";
+
   const opticClass = opticImage
-    ? opticImage.split("/").pop().split(".")[0]
-    : ""; // Extract optic name from image URL
+    ? `${opticImage.split("/").pop().split(".")[0]} ${selectedGun && selectedGun.name}`
+    : "";
 
   const onSelectOptic = (opticImage, opticName) => {
     // Check if the selected optic is part of the currently selected gun's optics array
