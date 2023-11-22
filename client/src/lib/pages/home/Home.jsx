@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
+import React, { useEffect, useReducer, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import M4A1Image from "../../assets/images/rifles/ar15/Ferfrans Fully Licensed M4 AEG.png";
 import AK47Image from "../../assets/images/rifles/ak/ELAK104 AEG ESSENTIAL.png";
