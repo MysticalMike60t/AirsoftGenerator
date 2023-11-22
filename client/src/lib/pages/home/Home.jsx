@@ -1,29 +1,11 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import M4A1Image from "../../assets/images/rifles/ar15/Ferfrans Fully Licensed M4 AEG.png";
+import AK47Image from "../../assets/images/rifles/ak/ELAK104 AEG ESSENTIAL.png";
+import MP7Image from "../../assets/images/smgs/mp7/HK MP7 Navy GBB Airsoft Submachine Gun.png";
 
-const Sidebar = () => {
+const Sidebar = ({ imagesByCategory }) => {
   const categories = [{ name: "AR-15" }, { name: "AK" }, { name: "SMG" }];
-
-  const imagesByCategory = {
-    "AR-15": [
-      {
-        name: "M4A1",
-        link: "/assets/images/rifles/ar15/Ferfrans Fully Licensed M4 AEG.png",
-      },
-    ],
-    AK: [
-      {
-        name: "AK-47",
-        link: "/assets/images/rifles/ak/ELAK104 AEG ESSENTIAL.png",
-      },
-    ],
-    SMG: [
-      {
-        name: "MP7",
-        link: "/assets/images/smgs/mp7/HK MP7 Navy GBB Airsoft Submachine Gun.png",
-      },
-    ],
-  };
 
   return (
     <div className="sidebar" id="sidebar">
@@ -31,7 +13,7 @@ const Sidebar = () => {
         <div className="category" key={category.name}>
           <h3>{category.name}</h3>
           {imagesByCategory[category.name].map((image, index) => (
-            <Link key={index} to={`/?image=${encodeURIComponent(image.link)}`}>
+            <Link key={index} to={`/?image=${encodeURIComponent(image.name)}`}>
               {image.name}
             </Link>
           ))}
@@ -44,10 +26,45 @@ const Sidebar = () => {
 const Home = () => {
   const location = useLocation();
 
-  const viewerBodyCategory = ""; // You can use this if you want to visually distinguish the category
-  const viewerBodyUrl =
+  const imagesByCategory = {
+    "AR-15": [
+      {
+        name: "M4A1",
+        image: M4A1Image,
+      },
+    ],
+    AK: [
+      {
+        name: "AK-47",
+        image: AK47Image,
+      },
+    ],
+    SMG: [
+      {
+        name: "MP7",
+        image: MP7Image,
+      },
+    ],
+  };
+
+  const viewerBodyImageName =
     decodeURIComponent(new URLSearchParams(location.search).get("image")) ||
-    "default-image-url";
+    "default-image-name";
+
+  let viewerBodyImage;
+  let viewerBodyCategory;
+
+  // Loop through categories to find the image
+  for (const category in imagesByCategory) {
+    const image = imagesByCategory[category].find(
+      (img) => img.name === viewerBodyImageName
+    );
+    if (image) {
+      viewerBodyImage = image.image;
+      viewerBodyCategory = category;
+      break;
+    }
+  }
 
   const sightSelectorClass = viewerBodyCategory
     ? `sight-selector ${viewerBodyCategory}`
@@ -55,12 +72,16 @@ const Home = () => {
 
   return (
     <div className="page home">
-      <Sidebar />
+      <Sidebar imagesByCategory={imagesByCategory} />
       <div className="viewer">
         <div className="wrapper">
           <div className="gun">
             <div className={sightSelectorClass}></div>
-            <img src={viewerBodyUrl} alt="Body" className="body" />
+            {viewerBodyImage ? (
+              <img src={viewerBodyImage} alt="Body" className="body" />
+            ) : (
+              <p>Image not found</p>
+            )}
           </div>
         </div>
       </div>
