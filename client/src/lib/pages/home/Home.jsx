@@ -5,7 +5,7 @@ import AK47Image from "../../assets/images/rifles/ak/ELAK104 AEG ESSENTIAL.png";
 import MP7Image from "../../assets/images/smgs/mp7/HK MP7 Navy GBB Airsoft Submachine Gun.png";
 import OpticImage from "../../assets/images/optics/holographic/eotech/exps2_ls.png"; // Add your optic image
 
-const Sidebar = ({ imagesByCategory, onSelectOptic }) => {
+const Sidebar = ({ imagesByCategory, onSelectOptic, selectedGun }) => {
   const categories = [{ name: "AR-15" }, { name: "AK" }, { name: "SMG" }];
 
   return (
@@ -23,19 +23,22 @@ const Sidebar = ({ imagesByCategory, onSelectOptic }) => {
               >
                 {gun.name}
               </Link>
-              {gun.optics && gun.optics.length > 0 && (
-                <div className="optic-selector">
-                  <h4>Optics:</h4>
-                  {gun.optics.map((optic, opticIndex) => (
-                    <button
-                      key={opticIndex}
-                      onClick={() => onSelectOptic(optic.image, optic.name)}
-                    >
-                      {optic.name}
-                    </button>
-                  ))}
-                </div>
-              )}
+              {selectedGun &&
+                selectedGun.name === gun.name &&
+                gun.optics &&
+                gun.optics.length > 0 && (
+                  <div className="optic-selector">
+                    <h4>Optics:</h4>
+                    {gun.optics.map((optic, opticIndex) => (
+                      <button
+                        key={opticIndex}
+                        onClick={() => onSelectOptic(optic.image, optic.name)}
+                      >
+                        {optic.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
             </div>
           ))}
         </div>
@@ -181,7 +184,9 @@ const Home = () => {
       <Sidebar
         imagesByCategory={imagesByCategory}
         onSelectOptic={onSelectOptic}
+        selectedGun={selectedGun}
       />
+
       <div className="viewer">
         <div className="wrapper">
           <div className={gunClass}>
