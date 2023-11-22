@@ -140,7 +140,7 @@ const Home = () => {
   const gunClass = viewerBodyCategory ? `gun ${viewerBodyCategory}` : "gun";
   const sightSelectorClass = viewerBodyImage
     ? `sight-selector ${viewerBodyImageName} ${selectedGun && selectedGun.name}`
-    : "sight-selector";
+    : "sight-selector hidden";
 
   const opticClass = opticImage
     ? `${opticImage.split("/").pop().split(".")[0]} ${
@@ -210,6 +210,9 @@ const Home = () => {
 
   return (
     <div className="page home">
+      <div className="page-width-message">
+        Please use this site on a device with a screen wider than 560 pixels!
+      </div>
       <Sidebar
         imagesByCategory={imagesByCategory}
         onSelectOptic={onSelectOptic}
@@ -231,7 +234,7 @@ const Home = () => {
             {selectedGun ? (
               <img src={selectedGun.image} alt="Body" className="body" />
             ) : (
-              <p>Image not found</p>
+              <p>Select A gun to start!</p>
             )}
           </div>
         </div>

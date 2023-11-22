@@ -68,6 +68,9 @@
           &:hover {
             filter: brightness(200%);
           }
+          &.hidden {
+            display: none;
+          }
           .optic {
             right: 0;
             top: -47.5px;
@@ -93,6 +96,33 @@
           position: relative;
         }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .header {
+    display: none !important;
+  }
+  .page.home {
+    top: 0;
+    height: 100vh;
+    .page-width-message {
+      padding: 20%;
+      font-size: 2em;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      text-wrap: wrap;
+      text-overflow: ellipsis;
+      background: red;
+      z-index: 99;
+    }
+    .viewer {
+      display: none;
     }
   }
 }
