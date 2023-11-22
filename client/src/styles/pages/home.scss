@@ -1,3 +1,73 @@
 .page.home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  .sidebar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 25%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    margin: 0;
+    background: green;
+    position: absolute;
+    a {
+      text-decoration: none;
+      color: black;
+      width: 100%;
+      margin: 0;
+      padding: 10px;
+      background: white;
+      border-bottom: 1px solid #ccc;
+    }
+  }
+  .viewer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 75%;
+    height: 100%;
+    right: 0;
+    top: 0;
+    padding: 10px;
     background: blue;
+    position: absolute;
+    .wrapper {
+      width: 100%;
+      background: orange;
+      .gun {
+        width: 700px;
+        height: auto;
+        background: pink;
+        position: relative;
+        .sight-selector {
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
+          background: rgb(200, 0, 0);
+          position: absolute;
+          z-index: +1;
+          cursor: pointer;
+          transition: 100ms ease all;
+          &:hover {
+            filter: brightness(200%);
+          }
+
+          &.mp7 {
+            left: 225px;
+            top: 35px;
+          }
+        }
+        .body {
+          width: 100%;
+          background: purple;
+          position: relative;
+        }
+      }
+    }
+  }
 }

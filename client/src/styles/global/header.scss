@@ -4,6 +4,7 @@ header.header#header {
   height: 50px;
   background: green;
   position: fixed;
+  z-index: 99;
   ul {
     @include flex-center-center-row;
     list-style: none;
