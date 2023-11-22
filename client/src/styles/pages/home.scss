@@ -144,12 +144,7 @@
 }
 
 @media screen and (max-width: 970px) {
-  .header {
-    display: none !important;
-  }
   .page.home {
-    top: 0;
-    height: 100vh;
     .page-width-message {
       color: $primary;
       padding: 20%;
@@ -166,15 +161,29 @@
       text-overflow: ellipsis;
       background: white;
       z-index: 99;
+      &.hidden {
+        display: none;
+      }
       span {
         display: inline-block;
         margin: 0;
         padding: 0;
         color: $secondary;
       }
-    }
-    .viewer {
-      display: none;
+      button {
+        color: white;
+        background: $primary;
+        outline: none;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: 100ms ease all;
+        &:hover {
+          background: $secondary;
+        }
+      }
     }
   }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useReducer, useRef } from "react";
+import React, { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import M4A1Image from "../../assets/images/rifles/ar15/Ferfrans Fully Licensed M4 AEG.png";
 import AK47Image from "../../assets/images/rifles/ak/ELAK104 AEG ESSENTIAL.png";
@@ -75,6 +75,8 @@ const Home = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const isMounted = useRef(true);
+
+  const [messageHidden, setMessageHidden] = useState(false);
 
   // Destructure state for easier access
   const { opticImage, selectedGun } = state;
@@ -211,10 +213,13 @@ const Home = () => {
 
   return (
     <div className="page home">
-      <div className="page-width-message">
+      <div className={`page-width-message ${messageHidden ? ('hidden') : ('')}`}>
         <p>
-        Please use this site on a device with a screen wider than <span>970</span> pixels!
+        Please use this site on a device with a screen wider than <span>970</span> pixels! The site will not function correctly otherwise!
         </p>
+        <button onClick={() => (setMessageHidden(true))}>
+          I Understand, and wish to Proceed
+        </button>
       </div>
       <Sidebar
         imagesByCategory={imagesByCategory}
