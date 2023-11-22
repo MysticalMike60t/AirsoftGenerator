@@ -23,17 +23,47 @@
       width: 100%;
       background: orange;
       position: relative;
+      padding: 0;
       h3 {
+        text-align: center;
+        width: 100%;
+        padding-top: 10px;
         font-size: 1.2em;
+        border-top: 1px solid #ccc;
       }
       .link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-decoration: none;
         color: black;
         width: 100%;
+        height: auto;
         margin: 0;
+        left: 0;
+        top: 0;
         padding: 10px;
         background: white;
         border-bottom: 1px solid #ccc;
+        position: relative;
+      }
+      .optic-selector {
+        text-align: center;
+        background: lightblue;
+        button {
+          background: greenyellow;
+          outline: none;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          margin-bottom: 10px;
+          cursor: pointer;
+          transition: 100ms ease all;
+          &:hover {
+            color: white;
+            background: darkgreen;
+          }
+        }
       }
     }
   }
