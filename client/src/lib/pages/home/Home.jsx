@@ -11,15 +11,15 @@ const initialState = {
 };
 
 const reducer = (state, action) => {
-    switch (action.type) {
-      case "SET_OPTIC_IMAGE":
-        return { ...state, opticImage: action.payload };
-      case "SET_SELECTED_GUN":
-        return { ...state, selectedGun: action.payload };
-      default:
-        return state;
-    }
-  };
+  switch (action.type) {
+    case "SET_OPTIC_IMAGE":
+      return { ...state, opticImage: action.payload };
+    case "SET_SELECTED_GUN":
+      return { ...state, selectedGun: action.payload };
+    default:
+      return state;
+  }
+};
 
 const Sidebar = ({ imagesByCategory, onSelectOptic, selectedGun }) => {
   const categories = [{ name: "AR-15" }, { name: "AK" }, { name: "SMG" }];
@@ -36,6 +36,11 @@ const Sidebar = ({ imagesByCategory, onSelectOptic, selectedGun }) => {
                 to={`/?category=${encodeURIComponent(
                   category.name
                 )}&image=${encodeURIComponent(gun.name)}`}
+                onClick={() =>
+                  setTimeout(function () {
+                    window.location.reload();
+                  }, 1)
+                }
               >
                 {gun.name}
               </Link>
@@ -74,7 +79,6 @@ const Home = () => {
 
   // Destructure state for easier access
   const { opticImage, selectedGun } = state;
-
 
   const imagesByCategory = {
     "AR-15": [
@@ -144,33 +148,40 @@ const Home = () => {
       }`
     : "";
 
-    const onSelectOptic = (opticImage, opticName) => {
-        if (selectedGun && selectedGun.optics) {
-          const isValidOptic = selectedGun.optics.some((optic) => optic.name === opticName);
-    
-          if (!isValidOptic) {
-            return;
-          }
-        }
-    
-        dispatch({ type: "SET_OPTIC_IMAGE", payload: opticImage });
-    
-        if (opticName) {
-          const searchParams = new URLSearchParams(location.search);
-          searchParams.set("optic", encodeURIComponent(opticName));
-          navigate({ search: searchParams.toString() });
-        }
-      };
+  const onSelectOptic = (opticImage, opticName) => {
+    if (selectedGun && selectedGun.optics) {
+      const isValidOptic = selectedGun.optics.some(
+        (optic) => optic.name === opticName
+      );
 
-      useEffect(() => {
-        return () => {
-          // Component will unmount, set isMounted to false
-          isMounted.current = false;
-        };
-      }, []);
+      if (!isValidOptic) {
+        return;
+      }
+    }
+
+    dispatch({ type: "SET_OPTIC_IMAGE", payload: opticImage });
+
+    if (opticName) {
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set("optic", encodeURIComponent(opticName));
+      navigate({ search: searchParams.toString() });
+    }
+  };
 
   useEffect(() => {
-    const updatedSelectedGun = imagesByCategory[viewerBodyCategory]?.find((gun) => gun.name === viewerBodyImageName);
+    return () => {
+      // Component will unmount, set isMounted to false
+      isMounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    const opticParam = new URLSearchParams(location.search).get("optic");
+    const updatedSelectedGun = imagesByCategory[viewerBodyCategory]?.find(
+      (gun) => gun.name === viewerBodyImageName
+    );
+
+    console.log(`Gun Updated to: ${viewerBodyImageName}`);
 
     if (!updatedSelectedGun) {
       console.error(`Gun with name ${viewerBodyImageName} not found.`);
@@ -180,12 +191,22 @@ const Home = () => {
     // Check if the component is still mounted before updating the state
     if (isMounted.current) {
       // Compare the previous and current selected gun before dispatching the action
+
+      // Set the initial optic image based on the URL parameter
+      if (opticParam) {
+        dispatch({ type: "SET_OPTIC_IMAGE", payload: OpticImage });
+      }
       if (updatedSelectedGun !== selectedGun) {
         dispatch({ type: "SET_SELECTED_GUN", payload: updatedSelectedGun });
       }
     }
-  }, [location.search, imagesByCategory, navigate, viewerBodyCategory, viewerBodyImageName, selectedGun]);
-  
+  }, [
+    location.search,
+    imagesByCategory,
+    viewerBodyCategory,
+    viewerBodyImageName,
+    selectedGun,
+  ]);
 
   return (
     <div className="page home">
@@ -194,7 +215,7 @@ const Home = () => {
         onSelectOptic={onSelectOptic}
         selectedGun={selectedGun}
       />
-  
+
       <div className="viewer">
         <div className="wrapper">
           <div className={gunClass}>
@@ -212,27 +233,11 @@ const Home = () => {
             ) : (
               <p>Image not found</p>
             )}
-            {selectedGun &&
-              selectedGun.optics &&
-              selectedGun.optics.length > 0 && (
-                <div className="optic-selector">
-                  <h4>Optics:</h4>
-                  {selectedGun.optics.map((optic, opticIndex) => (
-                    <button
-                      key={opticIndex}
-                      onClick={() => onSelectOptic(optic.image, optic.name)}
-                    >
-                      {optic.name}
-                    </button>
-                  ))}
-                </div>
-              )}
           </div>
         </div>
       </div>
     </div>
   );
-  
 };
 
 export default Home;
