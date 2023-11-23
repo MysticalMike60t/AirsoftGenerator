@@ -272,7 +272,7 @@ const Home = () => {
       <div className="viewer">
         <div className="wrapper">
           <div className={gunClass}>
-            {selectedGun && opticImage && (
+            {showOpticCard && selectedGun && opticImage && (
               <OpticCard
                 gunName={selectedGun.name}
                 opticImage={opticImage}
