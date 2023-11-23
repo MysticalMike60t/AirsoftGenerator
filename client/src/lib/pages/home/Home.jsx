@@ -5,6 +5,8 @@ import AK47Image from "../../assets/images/rifles/ak/ELAK104 AEG ESSENTIAL.png";
 import MP7Image from "../../assets/images/smgs/mp7/HK MP7 Navy GBB Airsoft Submachine Gun.png";
 import OpticImage from "../../assets/images/optics/holographic/eotech/exps2_ls.png"; // Add your optic image
 
+import OpticCard from "./modules/OpticCard";
+
 const initialState = {
   opticImage: null,
   selectedGun: null,
@@ -77,6 +79,7 @@ const Home = () => {
   const isMounted = useRef(true);
 
   const [messageHidden, setMessageHidden] = useState(false);
+  const [showOpticCard, setShowOpticCard] = useState(false);
 
   // Destructure state for easier access
   const { opticImage, selectedGun } = state;
@@ -230,7 +233,10 @@ const Home = () => {
       <div className="viewer">
         <div className="wrapper">
           <div className={gunClass}>
-            <div className={sightSelectorClass}>
+            {showOpticCard && (
+                <OpticCard opticImage={opticImage} opticName={selectedGun.name} />
+              )}
+            <div className={sightSelectorClass} onClick={() => (setShowOpticCard(!showOpticCard))}>
               {opticImage && (
                 <img
                   src={opticImage}
@@ -247,6 +253,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      {/* Display the optic card when showOpticCard is true */}
     </div>
   );
 };

@@ -100,6 +100,22 @@
         width: 700px;
         height: auto;
         position: relative;
+        .optic-card {
+          width: 100px;
+          background: red;
+          top: -190px;
+          right: 50%;
+          border-radius: 5px;
+          padding: 10px;
+          z-index: +1;
+          position: absolute;
+          img {
+            width: 100%;
+          }
+          h4 {
+            font-size: 1em;
+          }
+        }
         .sight-selector {
           width: 25px;
           height: 25px;
@@ -110,7 +126,9 @@
           cursor: pointer;
           transition: 100ms ease all;
           &:hover {
-            filter: brightness(200%);
+            .optic {
+              filter: drop-shadow(0 0 10px $primary) brightness(150%);
+            }
           }
           &.hidden {
             display: none;
