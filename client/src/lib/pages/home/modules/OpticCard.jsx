@@ -1,5 +1,5 @@
 import React from "react";
-const OpticCard = ({ gunName, opticImage, opticName, manufacturerLink }) => {
+const OpticCard = ({ gunName, opticName, manufacturerLink }) => {
   const opticClassName = opticName
     ? opticName.toLowerCase().replace(/\s/g, "-")
     : "";
