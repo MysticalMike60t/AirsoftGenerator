@@ -145,7 +145,7 @@ const Home = () => {
     }
   }
 
-  const gunClass = viewerBodyCategory ? `gun ${viewerBodyCategory}` : "gun";
+  const gunClass = viewerBodyCategory ? `gun ${viewerBodyCategory} ${selectedGun && selectedGun.name}` : "gun";
   const sightSelectorClass = viewerBodyImage
     ? `sight-selector ${viewerBodyImageName} ${selectedGun && selectedGun.name}`
     : "sight-selector hidden";
