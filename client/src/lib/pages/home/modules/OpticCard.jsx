@@ -1,11 +1,21 @@
 import React from "react";
+const OpticCard = ({ opticImage, opticName, manufacturerLink }) => {
+  const opticClassName = opticName
+    ? opticName.toLowerCase().replace(/\s/g, "-")
+    : "";
 
-const OpticCard = ({ opticImage, opticName }) => {
   return (
-    <div className="optic-card">
-      <img src={opticImage} alt={opticName} />
-      <h4>{opticName}</h4>
-      {/* Add more details if needed */}
+    <div className={`optic-card ${opticClassName}`}>
+      <img src={opticImage} alt="Optic" className="optic-card-image" />
+      <h3>{opticName}</h3>
+      {manufacturerLink && (
+        <div>
+          <p>Manufacturer's Website:</p>
+          <a href={manufacturerLink} target="_blank" rel="noopener noreferrer">
+            {manufacturerLink}
+          </a>
+        </div>
+      )}
     </div>
   );
 };

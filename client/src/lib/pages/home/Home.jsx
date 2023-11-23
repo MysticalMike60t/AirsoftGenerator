@@ -94,6 +94,7 @@ const Home = () => {
             {
               name: "EOTech EXPS2",
               image: OpticImage,
+              manufacturerLink: "https://www.eotechinc.com/",
             },
             // Add more optics as needed
           ],
@@ -116,12 +117,13 @@ const Home = () => {
             {
               name: "EOTech EXPS2",
               image: OpticImage,
+              manufacturerLink: "https://www.eotechinc.com/",
             },
             // Add more optics as needed
           ],
         },
       ],
-    }
+    };
   }, []);
 
   const viewerBodyImageName =
@@ -154,25 +156,27 @@ const Home = () => {
       }`
     : "";
 
-  const onSelectOptic = (opticImage, opticName) => {
-    if (selectedGun && selectedGun.optics) {
-      const isValidOptic = selectedGun.optics.some(
-        (optic) => optic.name === opticName
-      );
-
-      if (!isValidOptic) {
-        return;
+    const onSelectOptic = (opticImage, opticName, manufacturerLink) => {
+      if (selectedGun && selectedGun.optics) {
+        const selectedOptic = selectedGun.optics.find(
+          (optic) => optic.name === opticName
+        );
+    
+        if (!selectedOptic) {
+          console.error(`Optic with name ${opticName} not found for ${selectedGun.name}.`);
+          return;
+        }
       }
-    }
-
-    dispatch({ type: "SET_OPTIC_IMAGE", payload: opticImage });
-
-    if (opticName) {
-      const searchParams = new URLSearchParams(location.search);
-      searchParams.set("optic", encodeURIComponent(opticName));
-      navigate({ search: searchParams.toString() });
-    }
-  };
+    
+      dispatch({ type: "SET_OPTIC_IMAGE", payload: opticImage });
+    
+      if (opticName) {
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set("optic", encodeURIComponent(opticName));
+        navigate({ search: searchParams.toString() });
+      }
+    };
+    
 
   useEffect(() => {
     return () => {
@@ -216,11 +220,13 @@ const Home = () => {
 
   return (
     <div className="page home">
-      <div className={`page-width-message ${messageHidden ? ('hidden') : ('')}`}>
+      <div className={`page-width-message ${messageHidden ? "hidden" : ""}`}>
         <p>
-        Please use this site on a device with a screen wider than <span>970</span> pixels! The site will not function correctly otherwise!
+          Please use this site on a device with a screen wider than{" "}
+          <span>970</span> pixels! The site will not function correctly
+          otherwise!
         </p>
-        <button onClick={() => (setMessageHidden(true))}>
+        <button onClick={() => setMessageHidden(true)}>
           I Understand, and wish to Proceed
         </button>
       </div>
@@ -234,9 +240,20 @@ const Home = () => {
         <div className="wrapper">
           <div className={gunClass}>
             {showOpticCard && (
-                <OpticCard opticImage={opticImage} opticName={selectedGun.name} />
-              )}
-            <div className={sightSelectorClass} onClick={() => (setShowOpticCard(!showOpticCard))}>
+              <OpticCard
+                opticImage={opticImage}
+                opticName={selectedGun.optics[0].name}
+                manufacturerLink={
+                  selectedGun.optics &&
+                  selectedGun.optics.length > 0 &&
+                  selectedGun.optics[0].manufacturerLink
+                }
+              />
+            )}
+            <div
+              className={sightSelectorClass}
+              onClick={() => setShowOpticCard(!showOpticCard)}
+            >
               {opticImage && (
                 <img
                   src={opticImage}
