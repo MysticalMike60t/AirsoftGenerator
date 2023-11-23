@@ -5,6 +5,7 @@ import AK47Image from "../../assets/images/rifles/ak/ELAK104 AEG ESSENTIAL.png";
 import MP7Image from "../../assets/images/smgs/mp7/HK MP7 Navy GBB Airsoft Submachine Gun.png";
 import OpticImage from "../../assets/images/optics/holographic/eotech/exps2_ls.png"; // Add your optic image
 import LUMIXSpeedringCrossbowScope from "../../assets/images/optics/scope/crossbow/LUMIX_SPEEDRING_Crossbow_Scope.png";
+import FastFire3Image from "../../assets/images/optics/red-dot/fastfire3.png";
 
 import OpticCard from "./modules/OpticCard";
 
@@ -103,6 +104,11 @@ const Home = () => {
               manufacturerLink:
                 "https://shop.killerinstinctcrossbows.com/lumix-speedring-1-5-5-x-32-ir-e-crossbow-scope/",
             },
+            {
+              name: "FastFire 3",
+              image: FastFire3Image,
+              manufacturerLink: "https://www.burrisoptics.com/red-dots/fastfire-3",
+            },
             // Add more optics as needed
           ],
         },
@@ -131,6 +137,11 @@ const Home = () => {
               image: LUMIXSpeedringCrossbowScope,
               manufacturerLink:
                 "https://shop.killerinstinctcrossbows.com/lumix-speedring-1-5-5-x-32-ir-e-crossbow-scope/",
+            },
+            {
+              name: "FastFire 3",
+              image: FastFire3Image,
+              manufacturerLink: "https://www.burrisoptics.com/red-dots/fastfire-3",
             },
             // Add more optics as needed
           ],
