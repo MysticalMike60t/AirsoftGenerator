@@ -5,6 +5,8 @@ import AK47Image from "../../assets/images/rifles/ak/ELAK104 AEG ESSENTIAL.png";
 import MP7Image from "../../assets/images/smgs/mp7/HK MP7 Navy GBB Airsoft Submachine Gun.png";
 import OpticImage from "../../assets/images/optics/holographic/eotech/exps2_ls.png"; // Add your optic image
 
+import OpticCard from "./modules/OpticCard";
+
 const initialState = {
   opticImage: null,
   selectedGun: null,
@@ -77,6 +79,7 @@ const Home = () => {
   const isMounted = useRef(true);
 
   const [messageHidden, setMessageHidden] = useState(false);
+  const [showOpticCard, setShowOpticCard] = useState(false);
 
   // Destructure state for easier access
   const { opticImage, selectedGun } = state;
@@ -91,6 +94,7 @@ const Home = () => {
             {
               name: "EOTech EXPS2",
               image: OpticImage,
+              manufacturerLink: "https://www.eotechinc.com/",
             },
             // Add more optics as needed
           ],
@@ -113,12 +117,13 @@ const Home = () => {
             {
               name: "EOTech EXPS2",
               image: OpticImage,
+              manufacturerLink: "https://www.eotechinc.com/",
             },
             // Add more optics as needed
           ],
         },
       ],
-    }
+    };
   }, []);
 
   const viewerBodyImageName =
@@ -140,7 +145,9 @@ const Home = () => {
     }
   }
 
-  const gunClass = viewerBodyCategory ? `gun ${viewerBodyCategory}` : "gun";
+  const gunClass = viewerBodyCategory
+    ? `gun ${viewerBodyCategory} ${selectedGun && selectedGun.name}`
+    : "gun";
   const sightSelectorClass = viewerBodyImage
     ? `sight-selector ${viewerBodyImageName} ${selectedGun && selectedGun.name}`
     : "sight-selector hidden";
@@ -151,13 +158,16 @@ const Home = () => {
       }`
     : "";
 
-  const onSelectOptic = (opticImage, opticName) => {
+  const onSelectOptic = (opticImage, opticName, manufacturerLink) => {
     if (selectedGun && selectedGun.optics) {
-      const isValidOptic = selectedGun.optics.some(
+      const selectedOptic = selectedGun.optics.find(
         (optic) => optic.name === opticName
       );
 
-      if (!isValidOptic) {
+      if (!selectedOptic) {
+        console.error(
+          `Optic with name ${opticName} not found for ${selectedGun.name}.`
+        );
         return;
       }
     }
@@ -213,11 +223,13 @@ const Home = () => {
 
   return (
     <div className="page home">
-      <div className={`page-width-message ${messageHidden ? ('hidden') : ('')}`}>
+      <div className={`page-width-message ${messageHidden ? "hidden" : ""}`}>
         <p>
-        Please use this site on a device with a screen wider than <span>970</span> pixels! The site will not function correctly otherwise!
+          Please use this site on a device with a screen wider than{" "}
+          <span>970</span> pixels! The site will not function correctly
+          otherwise!
         </p>
-        <button onClick={() => (setMessageHidden(true))}>
+        <button onClick={() => setMessageHidden(true)}>
           I Understand, and wish to Proceed
         </button>
       </div>
@@ -230,7 +242,22 @@ const Home = () => {
       <div className="viewer">
         <div className="wrapper">
           <div className={gunClass}>
-            <div className={sightSelectorClass}>
+            {showOpticCard && (
+              <OpticCard
+                gunName={selectedGun.name}
+                opticImage={opticImage}
+                opticName={selectedGun.optics[0].name}
+                manufacturerLink={
+                  selectedGun.optics &&
+                  selectedGun.optics.length > 0 &&
+                  selectedGun.optics[0].manufacturerLink
+                }
+              />
+            )}
+            <div
+              className={sightSelectorClass}
+              onClick={() => opticImage && setShowOpticCard(!showOpticCard)}
+            >
               {opticImage && (
                 <img
                   src={opticImage}
@@ -239,6 +266,7 @@ const Home = () => {
                 />
               )}
             </div>
+
             {selectedGun ? (
               <img src={selectedGun.image} alt="Body" className="body" />
             ) : (
@@ -247,6 +275,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      {/* Display the optic card when showOpticCard is true */}
     </div>
   );
 };
