@@ -116,6 +116,9 @@
             &.lumix-speedring-crossbow-scope {
               top: -200px;
             }
+            &.fastfire-3 {
+              top: -200px;
+            }
           }
           img {
             width: 100%;
@@ -173,6 +176,16 @@
                 top: -45px;
                 right: -70px;
                 width: 220px;
+              }
+            }
+            &.fastfire3 {
+              &.MP7 {
+                top: -35px;
+                width: 80px;
+              }
+              &.M4A1 {
+                top: -20px;
+                width: 55px;
               }
             }
           }
