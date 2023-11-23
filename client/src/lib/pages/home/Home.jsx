@@ -145,7 +145,9 @@ const Home = () => {
     }
   }
 
-  const gunClass = viewerBodyCategory ? `gun ${viewerBodyCategory} ${selectedGun && selectedGun.name}` : "gun";
+  const gunClass = viewerBodyCategory
+    ? `gun ${viewerBodyCategory} ${selectedGun && selectedGun.name}`
+    : "gun";
   const sightSelectorClass = viewerBodyImage
     ? `sight-selector ${viewerBodyImageName} ${selectedGun && selectedGun.name}`
     : "sight-selector hidden";
@@ -156,27 +158,28 @@ const Home = () => {
       }`
     : "";
 
-    const onSelectOptic = (opticImage, opticName, manufacturerLink) => {
-      if (selectedGun && selectedGun.optics) {
-        const selectedOptic = selectedGun.optics.find(
-          (optic) => optic.name === opticName
+  const onSelectOptic = (opticImage, opticName, manufacturerLink) => {
+    if (selectedGun && selectedGun.optics) {
+      const selectedOptic = selectedGun.optics.find(
+        (optic) => optic.name === opticName
+      );
+
+      if (!selectedOptic) {
+        console.error(
+          `Optic with name ${opticName} not found for ${selectedGun.name}.`
         );
-    
-        if (!selectedOptic) {
-          console.error(`Optic with name ${opticName} not found for ${selectedGun.name}.`);
-          return;
-        }
+        return;
       }
-    
-      dispatch({ type: "SET_OPTIC_IMAGE", payload: opticImage });
-    
-      if (opticName) {
-        const searchParams = new URLSearchParams(location.search);
-        searchParams.set("optic", encodeURIComponent(opticName));
-        navigate({ search: searchParams.toString() });
-      }
-    };
-    
+    }
+
+    dispatch({ type: "SET_OPTIC_IMAGE", payload: opticImage });
+
+    if (opticName) {
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set("optic", encodeURIComponent(opticName));
+      navigate({ search: searchParams.toString() });
+    }
+  };
 
   useEffect(() => {
     return () => {
@@ -241,6 +244,7 @@ const Home = () => {
           <div className={gunClass}>
             {showOpticCard && (
               <OpticCard
+                gunName={selectedGun.name}
                 opticImage={opticImage}
                 opticName={selectedGun.optics[0].name}
                 manufacturerLink={
@@ -252,7 +256,7 @@ const Home = () => {
             )}
             <div
               className={sightSelectorClass}
-              onClick={() => setShowOpticCard(!showOpticCard)}
+              onClick={() => opticImage && setShowOpticCard(!showOpticCard)}
             >
               {opticImage && (
                 <img
@@ -262,6 +266,7 @@ const Home = () => {
                 />
               )}
             </div>
+
             {selectedGun ? (
               <img src={selectedGun.image} alt="Body" className="body" />
             ) : (
