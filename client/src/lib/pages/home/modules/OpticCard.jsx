@@ -6,7 +6,7 @@ const OpticCard = ({ gunName, opticImage, opticName, manufacturerLink }) => {
 
   return (
     <div className={`optic-card ${opticClassName} ${gunName}`}>
-      <img src={opticImage} alt="Optic" className="optic-card-image" />
+      {/* <img src={opticImage} alt="Optic" className="optic-card-image" /> */}
       <h3>{opticName}</h3>
       {manufacturerLink && (
         <div>

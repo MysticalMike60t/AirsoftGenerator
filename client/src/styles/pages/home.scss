@@ -101,10 +101,11 @@
         height: auto;
         position: relative;
         .optic-card {
-          width: 100px;
-          background: red;
+          background: white;
+          box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+          outline: 1px solid #ccc;
+          padding: 20px;
           border-radius: 5px;
-          padding: 10px;
           z-index: +1;
           position: absolute;
           &.MP7 {
@@ -117,6 +118,8 @@
             width: 100%;
           }
           h4 {
+            margin: 0;
+            padding: 0;
             font-size: 1em;
           }
         }
