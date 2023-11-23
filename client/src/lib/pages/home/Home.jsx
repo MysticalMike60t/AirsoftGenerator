@@ -4,6 +4,7 @@ import M4A1Image from "../../assets/images/rifles/ar15/Ferfrans Fully Licensed M
 import AK47Image from "../../assets/images/rifles/ak/ELAK104 AEG ESSENTIAL.png";
 import MP7Image from "../../assets/images/smgs/mp7/HK MP7 Navy GBB Airsoft Submachine Gun.png";
 import OpticImage from "../../assets/images/optics/holographic/eotech/exps2_ls.png"; // Add your optic image
+import LUMIXSpeedringCrossbowScope from "../../assets/images/optics/scope/crossbow/LUMIX_SPEEDRING_Crossbow_Scope.png";
 
 import OpticCard from "./modules/OpticCard";
 
@@ -119,6 +120,11 @@ const Home = () => {
               image: OpticImage,
               manufacturerLink: "https://www.eotechinc.com/",
             },
+            {
+              name: "LUMIX SPEEDRING Crossbow Scope",
+              image: LUMIXSpeedringCrossbowScope,
+              manufacturerLink: "https://shop.killerinstinctcrossbows.com/lumix-speedring-1-5-5-x-32-ir-e-crossbow-scope/",
+            }
             // Add more optics as needed
           ],
         },
@@ -193,33 +199,53 @@ const Home = () => {
     const updatedSelectedGun = imagesByCategory[viewerBodyCategory]?.find(
       (gun) => gun.name === viewerBodyImageName
     );
-
+  
     console.log(`Gun Updated to: ${viewerBodyImageName}`);
-
+  
     if (!updatedSelectedGun) {
       console.error(`Gun with name ${viewerBodyImageName} not found.`);
       return;
     }
-
+  
     // Check if the component is still mounted before updating the state
     if (isMounted.current) {
       // Compare the previous and current selected gun before dispatching the action
-
+  
+      // Reset the optic image when a new gun is selected
+      if (selectedGun && updatedSelectedGun !== selectedGun) {
+        dispatch({ type: "SET_OPTIC_IMAGE", payload: null });
+      }
+  
       // Set the initial optic image based on the URL parameter
       if (opticParam) {
-        dispatch({ type: "SET_OPTIC_IMAGE", payload: OpticImage });
-      }
+        const selectedOptic = updatedSelectedGun.optics.find(
+          (optic) => optic.name.toLowerCase() === decodeURIComponent(opticParam).toLowerCase()
+        );
+      
+        if (selectedOptic) {
+          dispatch({ type: "SET_OPTIC_IMAGE", payload: selectedOptic.image });
+        } else {
+          console.error(`Optic with name ${opticParam} not found for ${updatedSelectedGun.name}.`);
+          // If the specified optic is not found, clear the optic image
+          dispatch({ type: "SET_OPTIC_IMAGE", payload: null });
+        }
+      } else {
+        // No optic specified in the URL, clear the optic image
+        dispatch({ type: "SET_OPTIC_IMAGE", payload: null });
+      }      
+  
       if (updatedSelectedGun !== selectedGun) {
         dispatch({ type: "SET_SELECTED_GUN", payload: updatedSelectedGun });
       }
     }
   }, [
     location.search,
-    imagesByCategory, // Removed from dependency array
+    imagesByCategory,
     viewerBodyCategory,
     viewerBodyImageName,
     selectedGun,
   ]);
+  
 
   return (
     <div className="page home">
