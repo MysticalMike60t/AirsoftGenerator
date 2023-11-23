@@ -151,6 +151,8 @@
             position: absolute;
             -moz-window-dragging: none;
             -webkit-user-drag: none;
+            filter: drop-shadow(0 0 0 $primary) brightness(100%);
+            transition: 100ms ease all;
             &.exps2_ls {
               &.MP7 {
                 top: -65px;
