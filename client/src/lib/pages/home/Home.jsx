@@ -97,6 +97,12 @@ const Home = () => {
               image: OpticImage,
               manufacturerLink: "https://www.eotechinc.com/",
             },
+            {
+              name: "LUMIX SPEEDRING Crossbow Scope",
+              image: LUMIXSpeedringCrossbowScope,
+              manufacturerLink:
+                "https://shop.killerinstinctcrossbows.com/lumix-speedring-1-5-5-x-32-ir-e-crossbow-scope/",
+            },
             // Add more optics as needed
           ],
         },
