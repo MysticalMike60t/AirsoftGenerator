@@ -41,40 +41,47 @@
         font-size: 1.2em;
         border-top: 1px solid #ccc;
       }
-      .link {
+      div {
         display: flex;
         align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        color: black;
-        width: 100%;
-        height: auto;
-        margin: 0;
-        left: 0;
-        top: 0;
-        padding: 10px;
-        background: white;
-        border-bottom: 1px solid #ccc;
-        position: relative;
-        transition: 100ms ease all;
-        &:hover {
-          background: rgb(230, 230, 230);
-        }
-      }
-      .optic-selector {
-        text-align: center;
-        button {
-          color: white;
-          background: $primary;
-          outline: none;
-          border: none;
-          padding: 10px 20px;
-          border-radius: 5px;
-          margin-bottom: 10px;
-          cursor: pointer;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 10px;
+        .link {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+          color: black;
+          width: 100%;
+          height: auto;
+          margin: 0;
+          left: 0;
+          top: 0;
+          padding: 10px;
+          background: white;
+          border-bottom: 1px solid #ccc;
+          position: relative;
           transition: 100ms ease all;
           &:hover {
-            background: $secondary;
+            background: rgb(230, 230, 230);
+          }
+        }
+        .optic-selector {
+          text-align: center;
+          button {
+            color: white;
+            background: $primary;
+            outline: none;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 100ms ease all;
+            &:hover {
+              background: $secondary;
+            }
           }
         }
       }
@@ -117,6 +124,9 @@
               top: -200px;
             }
             &.fastfire-3 {
+              top: -200px;
+            }
+            &.eotech-vudu {
               top: -200px;
             }
           }
@@ -186,6 +196,18 @@
               &.M4A1 {
                 top: -20px;
                 width: 55px;
+              }
+            }
+            &.EOTech_vudu {
+              &.MP7 {
+                top: -135px;
+                right: -100px;
+                width: 315px;
+              }
+              &.M4A1 {
+                top: -89px;
+                right: -50px;
+                width: 215px;
               }
             }
           }
