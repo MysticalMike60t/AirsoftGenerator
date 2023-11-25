@@ -6,6 +6,7 @@ import MP7Image from "../../assets/images/smgs/mp7/HK MP7 Navy GBB Airsoft Subma
 import OpticImage from "../../assets/images/optics/holographic/eotech/exps2_ls.png"; // Add your optic image
 import LUMIXSpeedringCrossbowScope from "../../assets/images/optics/scope/crossbow/LUMIX_SPEEDRING_Crossbow_Scope.png";
 import FastFire3Image from "../../assets/images/optics/red-dot/fastfire3.png";
+import EotechVudu from "../../assets/images/optics/scope/eotech/EOTech_vudu.png";
 
 import OpticCard from "./modules/OpticCard";
 
@@ -109,6 +110,11 @@ const Home = () => {
               image: FastFire3Image,
               manufacturerLink: "https://www.burrisoptics.com/red-dots/fastfire-3",
             },
+            {
+              name: "EOTech Vudu",
+              image: EotechVudu,
+              manufacturerLink: "https://alphaopticsinc.com/eotech-vudu-1-10x28-ffp-precision-rifle-scope",
+            },
             // Add more optics as needed
           ],
         },
@@ -142,6 +148,11 @@ const Home = () => {
               name: "FastFire 3",
               image: FastFire3Image,
               manufacturerLink: "https://www.burrisoptics.com/red-dots/fastfire-3",
+            },
+            {
+              name: "EOTech Vudu",
+              image: EotechVudu,
+              manufacturerLink: "https://alphaopticsinc.com/eotech-vudu-1-10x28-ffp-precision-rifle-scope",
             },
             // Add more optics as needed
           ],
